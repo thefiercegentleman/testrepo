@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Personalization Notes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <header class="header">
+        <h1>Personalization Notes</h1>
+        <p>All notes are stored locally in Chrome. Export them periodically as a backup.</p>
+      </header>
+
+      <section class="toolbar">
+        <input
+          type="search"
+          id="filter"
+          placeholder="Search by email, domain, or note text"
+          aria-label="Filter notes"
+        />
+        <div class="toolbar__actions">
+          <button id="export" class="button">Export JSON</button>
+          <label for="import" class="button button--secondary">Import JSON</label>
+          <input type="file" id="import" accept="application/json" hidden />
+          <button id="clearAll" class="button button--danger">Delete All</button>
+        </div>
+      </section>
+
+      <section class="table-wrapper" aria-live="polite" aria-busy="true">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Email</th>
+              <th scope="col">Last Updated</th>
+              <th scope="col">Note</th>
+              <th scope="col" class="actions-col">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="notesBody">
+            <tr>
+              <td colspan="4" class="empty">Loading…</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <template id="note-row">
+      <tr>
+        <td class="email"></td>
+        <td class="timestamp"></td>
+        <td class="note"></td>
+        <td class="row-actions">
+          <button class="link" data-action="copy">Copy</button>
+          <button class="link link--danger" data-action="delete">Delete</button>
+        </td>
+      </tr>
+    </template>
+
+    <dialog id="confirm">
+      <form method="dialog">
+        <h2>Delete notes?</h2>
+        <p id="confirmMessage"></p>
+        <div class="dialog-actions">
+          <button value="cancel" class="button button--secondary">Cancel</button>
+          <button value="confirm" class="button button--danger">Delete</button>
+        </div>
+      </form>
+    </dialog>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+
+    <script src="options.js" type="module"></script>
+  </body>
+</html>
