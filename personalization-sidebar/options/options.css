@@ -1,0 +1,244 @@
+:root {
+  color-scheme: light dark;
+  --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --surface: #ffffff;
+  --surface-muted: #f8fafc;
+  --border: rgba(15, 23, 42, 0.12);
+  --text: #0f172a;
+  --text-muted: #475467;
+  --primary: #1d4ed8;
+  --primary-contrast: #ffffff;
+  --danger: #b91c1c;
+  --danger-bg: #fee2e2;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #0f172a;
+    --surface-muted: #111827;
+    --border: rgba(148, 163, 184, 0.2);
+    --text: #e2e8f0;
+    --text-muted: #94a3b8;
+    --primary: #3b82f6;
+    --primary-contrast: #0b1120;
+    --danger: #f87171;
+    --danger-bg: rgba(248, 113, 113, 0.12);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background: var(--surface-muted);
+  color: var(--text);
+}
+
+.layout {
+  margin: 0 auto;
+  padding: 32px clamp(16px, 4vw, 48px);
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+}
+
+.header p {
+  margin: 6px 0 0;
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#filter {
+  flex: 1 1 280px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: inherit;
+  font-size: 14px;
+}
+
+.toolbar__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.button {
+  border: none;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--primary);
+  color: var(--primary-contrast);
+}
+
+.button--secondary {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.button--danger {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+.table-wrapper {
+  background: var(--surface);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 14px 16px;
+  text-align: left;
+  vertical-align: top;
+}
+
+thead {
+  background: var(--surface-muted);
+  color: var(--text-muted);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+tbody tr:nth-child(even) {
+  background: var(--surface);
+}
+
+tbody tr:nth-child(odd) {
+  background: rgba(148, 163, 184, 0.08);
+}
+
+tbody tr:hover {
+  background: rgba(59, 130, 246, 0.08);
+}
+
+.actions-col,
+.row-actions {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.note {
+  max-width: 460px;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+.empty {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 32px;
+  font-size: 15px;
+}
+
+.link {
+  background: none;
+  border: none;
+  color: var(--primary);
+  cursor: pointer;
+  font-weight: 600;
+  padding: 4px 0;
+}
+
+.link--danger {
+  color: var(--danger);
+}
+
+dialog {
+  border: none;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 360px;
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.2);
+  background: var(--surface);
+}
+
+dialog::backdrop {
+  background: rgba(15, 23, 42, 0.45);
+}
+
+dialog h2 {
+  margin-top: 0;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+#toast {
+  position: fixed;
+  bottom: 18px;
+  right: 18px;
+  background: rgba(15, 23, 42, 0.92);
+  color: #ffffff;
+  padding: 12px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.3);
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+
+#toast.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 720px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .toolbar__actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .toolbar__actions .button,
+  .toolbar__actions label {
+    flex: 1 1 calc(50% - 6px);
+    text-align: center;
+  }
+
+  .actions-col,
+  .row-actions {
+    text-align: left;
+  }
+}
